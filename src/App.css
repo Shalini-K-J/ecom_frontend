@@ -1,0 +1,123 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background: #f8f9fa;
+  min-height: 100vh;
+}
+
+.app {
+  min-height: 100vh;
+}
+
+.main-content {
+  min-height: calc(100vh - 70px);
+}
+
+/* Loading Screen */
+.loading-screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #667eea;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Access Denied */
+.access-denied {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+  padding: 20px;
+}
+
+.access-denied-content {
+  text-align: center;
+  background: white;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.access-denied-content h2 {
+  color: #e74c3c;
+  margin-bottom: 15px;
+}
+
+.access-denied-content p {
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.access-denied-content button {
+  margin-top: 20px;
+  padding: 12px 30px;
+  background: #667eea;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s ease;
+}
+
+.access-denied-content button:hover {
+  background: #5a6fd6;
+}
+
+/* Global Link Styles */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Utility Classes */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Responsive Images */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Loading Animation */
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  color: #667eea;
+  font-size: 1.2rem;
+}
+
+/* Error Message */
+.error {
+  color: #e74c3c;
+  text-align: center;
+  padding: 20px;
+  background: #fadbd8;
+  border-radius: 8px;
+  margin: 20px 0;
+}

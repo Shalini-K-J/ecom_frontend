@@ -1,0 +1,254 @@
+.tracking-page {
+  min-height: 80vh;
+  padding: 40px 20px;
+  background: #f8f9fa;
+}
+
+.tracking-container {
+  max-width: 800px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.tracking-container h1 {
+  color: #333;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.no-orders {
+  text-align: center;
+  color: #666;
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.shop-now-btn {
+  display: inline-block;
+  padding: 12px 30px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  text-decoration: none;
+  border-radius: 25px;
+  font-weight: 500;
+  transition: transform 0.3s ease;
+}
+
+.shop-now-btn:hover {
+  transform: translateY(-2px);
+}
+
+/* Orders List */
+.orders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.order-card {
+  padding: 15px;
+  border: 2px solid #eee;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.order-card:hover {
+  border-color: #667eea;
+}
+
+.order-card.selected {
+  border-color: #667eea;
+  background: #f0f4ff;
+}
+
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.order-id {
+  font-weight: 600;
+  color: #333;
+}
+
+.order-status {
+  padding: 4px 12px;
+  border-radius: 20px;
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.order-details {
+  display: flex;
+  justify-content: space-between;
+  color: #666;
+}
+
+/* Order Details Panel */
+.order-details-panel {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.order-details-panel h2 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.detail-section {
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.detail-section:last-child {
+  border-bottom: none;
+}
+
+.detail-section h3 {
+  color: #333;
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+.detail-section p {
+  color: #666;
+  margin: 5px 0;
+}
+
+.item-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  color: #666;
+}
+
+.item-thumb {
+  width: 30px;
+  height: 30px;
+  object-fit: cover;
+  border-radius: 5px;
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+.total-section {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #333;
+  border-top: 2px solid #ddd;
+  border-bottom: none;
+  padding-top: 15px;
+}
+
+/* Tracking Timeline */
+.tracking-timeline {
+  margin-top: 20px;
+}
+
+.tracking-timeline h3 {
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.timeline {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  padding: 0 10px;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 40px;
+  right: 40px;
+  height: 2px;
+  background: #ddd;
+}
+
+.timeline-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.step-dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #ddd;
+  margin-bottom: 8px;
+}
+
+.timeline-step.completed .step-dot {
+  background: #27ae60;
+}
+
+.timeline-step span {
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.timeline-step.completed span {
+  color: #27ae60;
+  font-weight: 500;
+}
+
+/* Price breakdown in order */
+.price-breakdown-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0;
+  color: #666;
+}
+
+.price-breakdown-row.total {
+  font-weight: 600;
+  color: #333;
+  border-top: 1px solid #ddd;
+  margin-top: 5px;
+  padding-top: 10px;
+}
+
+.download-invoice-btn {
+  margin-top: 15px;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.download-invoice-btn:hover {
+  transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .tracking-container {
+    padding: 20px;
+  }
+  
+  .timeline::before {
+    left: 20px;
+    right: 20px;
+  }
+}

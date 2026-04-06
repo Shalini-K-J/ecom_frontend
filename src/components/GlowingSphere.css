@@ -1,0 +1,85 @@
+.glowing-sphere-container {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  background: radial-gradient(ellipse at center, #1a1a2e 0%, #0f0f1a 50%, #050508 100%);
+  overflow: hidden;
+  cursor: move;
+}
+
+.glowing-sphere-container canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
+
+.sphere-instructions {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(255, 255, 255, 0.5);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 14px;
+  letter-spacing: 1px;
+  pointer-events: none;
+  animation: fadeInOut 3s ease-in-out infinite;
+}
+
+.sphere-instructions p {
+  margin: 0;
+  padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@keyframes fadeInOut {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+/* Add some floating particles effect with pseudo-elements */
+.glowing-sphere-container::before,
+.glowing-sphere-container::after {
+  content: '';
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.3;
+  animation: float 8s ease-in-out infinite;
+}
+
+.glowing-sphere-container::before {
+  background: #6366f1;
+  top: 10%;
+  left: 10%;
+}
+
+.glowing-sphere-container::after {
+  background: #ec4899;
+  bottom: 10%;
+  right: 10%;
+  animation-delay: -4s;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  25% {
+    transform: translate(30px, -30px) scale(1.1);
+  }
+  50% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+  75% {
+    transform: translate(20px, 30px) scale(1.05);
+  }
+}

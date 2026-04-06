@@ -1,0 +1,140 @@
+.admin-navbar {
+  background: linear-gradient(180deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+  padding: 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  border-bottom: 2px solid #00d9ff;
+}
+
+.admin-navbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 30px;
+  height: 70px;
+}
+
+.admin-navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.admin-brand-icon {
+  font-size: 1.5rem;
+  color: #00d9ff;
+}
+
+.admin-brand-text {
+  color: #00d9ff;
+  font-size: 1.3rem;
+  font-weight: 700;
+  text-shadow: 0 0 10px rgba(0, 217, 255, 0.5);
+}
+
+.admin-navbar-menu {
+  display: flex;
+  gap: 10px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.admin-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  background: rgba(0, 217, 255, 0.05);
+  border: 1px solid rgba(0, 217, 255, 0.2);
+}
+
+.admin-nav-link:hover {
+  background: rgba(0, 217, 255, 0.2);
+  color: white;
+  border-color: #00d9ff;
+  transform: translateY(-2px);
+}
+
+.admin-nav-link.active {
+  background: linear-gradient(135deg, #00d9ff 0%, #0099cc 100%);
+  color: #0f2027;
+  border-color: #00d9ff;
+  box-shadow: 0 0 20px rgba(0, 217, 255, 0.5);
+}
+
+.admin-nav-icon {
+  font-size: 1rem;
+}
+
+.admin-navbar-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.admin-go-store-btn,
+.admin-logout-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.admin-go-store-btn {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.admin-go-store-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: #00d9ff;
+}
+
+.admin-logout-btn {
+  background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+  color: white;
+  border: 1px solid #e74c3c;
+}
+
+.admin-logout-btn:hover {
+  background: linear-gradient(135deg, #c0392b 0%, #a93226 100%);
+  box-shadow: 0 0 20px rgba(231, 76, 60, 0.5);
+}
+
+@media (max-width: 768px) {
+  .admin-navbar-container {
+    padding: 0 15px;
+    height: 60px;
+  }
+  
+  .admin-brand-text {
+    display: none;
+  }
+  
+  .admin-nav-link span,
+  .admin-go-store-btn span,
+  .admin-logout-btn span {
+    display: none;
+  }
+  
+  .admin-nav-link,
+  .admin-go-store-btn,
+  .admin-logout-btn {
+    padding: 10px 14px;
+  }
+}

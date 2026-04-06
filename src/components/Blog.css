@@ -1,0 +1,140 @@
+.blog-container {
+  min-height: 100vh;
+  padding: 20px;
+  background: #f8f9fa;
+}
+
+.blog-header {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.blog-title {
+  color: #333;
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.blog-subtitle {
+  color: #666;
+  font-size: 1.1rem;
+}
+
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px 0;
+}
+
+.blog-card {
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.blog-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.blog-image {
+  width: 100%;
+  height: 200px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3rem;
+}
+
+.blog-content {
+  padding: 20px;
+}
+
+.blog-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  font-size: 0.85rem;
+}
+
+.blog-category {
+  background: #f0f0f0;
+  color: #667eea;
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.blog-date {
+  color: #999;
+}
+
+.blog-post-title {
+  color: #333;
+  font-size: 1.3rem;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.blog-excerpt {
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+.blog-author {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  font-size: 0.9rem;
+}
+
+.author-label {
+  color: #999;
+  margin-right: 5px;
+}
+
+.author-name {
+  color: #667eea;
+  font-weight: 500;
+}
+
+.read-more {
+  background: none;
+  border: none;
+  color: #667eea;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  font-size: 0.95rem;
+  transition: color 0.3s ease;
+}
+
+.read-more:hover {
+  color: #764ba2;
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .blog-title {
+    font-size: 2rem;
+  }
+  
+  .blog-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .blog-image {
+    height: 180px;
+    font-size: 2.5rem;
+  }
+}
