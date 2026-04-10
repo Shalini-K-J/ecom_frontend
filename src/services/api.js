@@ -1,4 +1,4 @@
-const API_URL = 'https://ecomm-backend-dsyn.onrender.com';
+const API_URL = 'https://ecomm-backend-dsyn.onrender.com/api';
 
 // User APIs
 export const userAPI = {
