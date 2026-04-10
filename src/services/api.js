@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:5000/api';
+const API_URL = 'https://ecomm-backend-dsyn.onrender.com';
 
 // User APIs
 export const userAPI = {
