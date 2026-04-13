@@ -1,4 +1,14 @@
-const API_URL = 'https://ecomm-backend-dsyn.onrender.com/api';
+const getApiUrl = () => {
+  if (typeof window !== 'undefined') {
+    const hostname = window.location.hostname;
+    if (hostname === 'localhost' || hostname === '127.0.0.1') {
+      return 'http://localhost:5000/api';
+    }
+  }
+  return 'https://ecomm-backend-dsyn.onrender.com/api';
+};
+
+const API_URL = getApiUrl();
 
 // User APIs
 export const userAPI = {
