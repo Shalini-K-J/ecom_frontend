@@ -15,11 +15,12 @@ function AdminDashboard() {
   const [editingUser, setEditingUser] = useState(null)
   const [showPermissionsModal, setShowPermissionsModal] = useState(false)
   const [selectedUser, setSelectedUser] = useState(null)
+  const [showCustomerModal, setShowCustomerModal] = useState(false)
+  const [editingCustomer, setEditingCustomer] = useState(null)
+  const [customerFormData, setCustomerFormData] = useState({ name: '', email: '', phone: '' })
   const [showAddCategoryModal, setShowAddCategoryModal] = useState(false)
   const [editingCategory, setEditingCategory] = useState(null)
   const [categoryFormData, setCategoryFormData] = useState({ name: '', description: '' })
-  const [editingCustomer, setEditingCustomer] = useState(null)
-  const [customerFormData, setCustomerFormData] = useState({ name: '', email: '', phone: '' })
   const [userFormData, setUserFormData] = useState({
     name: '',
     email: '',
@@ -174,12 +175,10 @@ function AdminDashboard() {
       showToast('Error updating customer', 'error')
     }
     
-    setEditingCustomer(null)
+setEditingCustomer(null)
     setCustomerFormData({ name: '', email: '', phone: '' })
     setShowCustomerModal(false)
   }
-  
-  const [showCustomerModal, setShowCustomerModal] = useState(false)
 
   const handleInputChange = (e) => {
     const { name, value } = e.target

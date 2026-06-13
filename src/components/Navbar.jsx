@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { FaShoppingCart, FaUser, FaSignInAlt, FaSignOutAlt, FaHome, FaInfoCircle, FaBox, FaBlog, FaEnvelope, FaBoxOpen, FaCog, FaHeart, FaSearch } from 'react-icons/fa'
+import { productAPI } from '../services/api'
 import './Navbar.css'
 
 function Navbar() {
@@ -28,8 +29,7 @@ function Navbar() {
     // Load all products for search
     const loadProductsForSearch = async () => {
       try {
-        const response = await fetch('/api/products')
-        const data = await response.json()
+        const data = await productAPI.getAll()
         if (data.data) {
           setAllProducts(data.data)
         }

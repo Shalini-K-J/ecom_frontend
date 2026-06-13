@@ -138,10 +138,9 @@ function Products() {
 
   const loadCart = async (userId) => {
     try {
-      const response = await fetch(`/api/cart/${userId}`)
-      const data = await response.json()
-      if (data.data && data.data.items) {
-        const totalItems = data.data.items.reduce((sum, item) => sum + (item.quantity || 1), 0)
+      const response = await cartAPI.getCart(userId)
+      if (response.data && response.data.items) {
+        const totalItems = response.data.items.reduce((sum, item) => sum + (item.quantity || 1), 0)
         setCartCount(totalItems)
       }
     } catch (error) {

@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { FaEnvelope, FaLock, FaSignInAlt, FaUserPlus, FaUserShield } from 'react-icons/fa'
+import { userAPI } from '../services/api'
 import './Login.css'
-
-const API_URL = '/api/users'
 
 function Login() {
   const navigate = useNavigate()
@@ -36,21 +35,9 @@ function Login() {
     setLoading(true)
     
     try {
-      const response = await fetch(API_URL + '/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          email: formData.email,
-          password: formData.password,
-          isAdmin: false
-        })
-      })
+      const data = await userAPI.login(formData.email, formData.password, false)
 
-      const data = await response.json()
-
-      if (response.ok) {
+      if (data.message) {
         localStorage.setItem('isLoggedIn', 'true')
         // Check if user is admin from response data
         const isAdmin = data.data?.role === 'admin'

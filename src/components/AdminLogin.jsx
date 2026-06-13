@@ -1,10 +1,9 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { FaEnvelope, FaLock, FaSignInAlt, FaUserShield, FaArrowLeft } from 'react-icons/fa'
+import { userAPI } from '../services/api'
 import './AdminLogin.css'
 import { showToast } from './Toast'
-
-const API_URL = '/api/users'
 
 function AdminLogin() {
   const navigate = useNavigate()
@@ -28,21 +27,9 @@ function AdminLogin() {
     setLoading(true)
     
     try {
-      const response = await fetch(API_URL + '/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          email: formData.email,
-          password: formData.password,
-          isAdmin: true
-        })
-      })
+      const data = await userAPI.login(formData.email, formData.password, true)
 
-      const data = await response.json()
-
-      if (response.ok) {
+      if (data.message) {
         localStorage.setItem('isLoggedIn', 'true')
         localStorage.setItem('isAdminUser', 'true')
         localStorage.setItem('userData', JSON.stringify(data.data))
@@ -64,58 +51,28 @@ function AdminLogin() {
     
     try {
       // Try to login with default admin credentials
-      const response = await fetch(API_URL + '/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          email: 'admin@shalinicart.com',
-          password: 'admin123',
-          isAdmin: true
-        })
-      })
+      const data = await userAPI.login('admin@shalinicart.com', 'admin123', true)
 
-      const data = await response.json()
-
-      if (response.ok) {
+      if (data.message) {
         localStorage.setItem('isLoggedIn', 'true')
+        localStorage.setItem('isAdminUser', 'true')
         localStorage.setItem('userData', JSON.stringify(data.data))
         showToast('Admin login successful!', 'success')
         navigate('/admin')
       } else {
         // If no admin exists, create one
-        if (data.error.includes('Invalid') || data.error.includes('not found')) {
-          const signupResponse = await fetch(API_URL + '/signup', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              name: 'Admin',
-              email: 'admin@shalinicart.com',
-              phone: '1234567890',
-              password: 'admin123'
-            })
+        if (data.error && (data.error.includes('Invalid') || data.error.includes('not found'))) {
+          const signupData = await userAPI.signup({
+            name: 'Admin',
+            email: 'admin@shalinicart.com',
+            phone: '1234567890',
+            password: 'admin123'
           })
 
-          if (signupResponse.ok) {
+          if (signupData.message) {
             // Try login again
-            const loginResponse = await fetch(API_URL + '/login', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({
-                email: 'admin@shalinicart.com',
-                password: 'admin123',
-                isAdmin: true
-              })
-            })
-
-            const loginData = await loginResponse.json()
-            
-            if (loginResponse.ok) {
+            const loginData = await userAPI.login('admin@shalinicart.com', 'admin123', true)
+            if (loginData.message) {
               localStorage.setItem('isLoggedIn', 'true')
               localStorage.setItem('isAdminUser', 'true')
               localStorage.setItem('userData', JSON.stringify(loginData.data))
@@ -177,18 +134,18 @@ function AdminLogin() {
             />
           </div>
 
-          <button type="submit" className="admin-auth-button">
-            <FaSignInAlt className="admin-button-icon" />
-            Login as Admin
-          </button>
+<button type="submit" className="admin-auth-button" disabled={loading}>
+             <FaSignInAlt className="admin-button-icon" />
+             {loading ? 'Logging in...' : 'Login as Admin'}
+           </button>
         </form>
 
         {/* Admin Quick Login */}
         <div className="admin-quick-login">
-          <button type="button" className="admin-quick-btn" onClick={handleQuickLogin}>
-            <FaUserShield className="admin-quick-icon" />
-            Quick Admin Login (admin123)
-          </button>
+<button type="button" className="admin-quick-btn" onClick={handleQuickLogin} disabled={loading}>
+             <FaUserShield className="admin-quick-icon" />
+             {loading ? 'Logging in...' : 'Quick Admin Login (admin123)'}
+           </button>
         </div>
 
         <div className="admin-switch">

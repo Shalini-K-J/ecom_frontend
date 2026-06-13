@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { FaUser, FaPhone, FaEnvelope, FaLock, FaSignInAlt, FaUserPlus } from 'react-icons/fa'
+import { userAPI } from '../services/api'
 import './Signup.css'
-
-const API_URL = '/api/users'
 
 function Signup() {
   const navigate = useNavigate()
@@ -111,22 +110,14 @@ function Signup() {
     setLoading(true)
     
     try {
-      const response = await fetch(API_URL + '/signup', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone,
-          password: formData.password
-        })
+      const data = await userAPI.signup({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        password: formData.password
       })
 
-      const data = await response.json()
-
-      if (response.ok) {
+      if (data.message || data.success) {
         setMessage({ type: 'success', text: 'Registration successful! Please login to continue.' })
         setTimeout(() => navigate('/login'), 1500)
       } else {

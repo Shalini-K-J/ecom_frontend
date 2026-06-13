@@ -1,14 +1,29 @@
-const getApiUrl = () => {
-  if (typeof window !== 'undefined') {
-    const hostname = window.location.hostname;
-    if (hostname === 'localhost' || hostname === '127.0.0.1') {
-      return 'http://localhost:5000/api';
+const API_URL = (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_API_URL
+  ? import.meta.env.VITE_API_URL
+  : (typeof window !== 'undefined' && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1'
+    ? 'https://ecomm-backend-dsyn.onrender.com/api'
+    : 'http://localhost:5000/api'));
+
+const handleResponse = async (response) => {
+  if (!response.ok) {
+    const errorText = await response.text().catch(() => 'Unknown error');
+    try {
+      const errorData = JSON.parse(errorText);
+      throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
+    } catch {
+      throw new Error(errorText || `HTTP error! status: ${response.status}`);
     }
   }
-  return 'https://ecomm-backend-dsyn.onrender.com/api';
+  const text = await response.text();
+  if (!text) {
+    throw new Error('Empty response from server');
+  }
+  try {
+    return JSON.parse(text);
+  } catch (e) {
+    throw new Error('Invalid JSON response');
+  }
 };
-
-const API_URL = getApiUrl();
 
 // User APIs
 export const userAPI = {
@@ -18,7 +33,7 @@ export const userAPI = {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(userData)
     });
-    return response.json();
+    return handleResponse(response);
   },
   
   login: async (email, password, isAdmin = false) => {
@@ -27,12 +42,12 @@ export const userAPI = {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password, isAdmin })
     });
-    return response.json();
+    return handleResponse(response);
   },
   
   getAllUsers: async () => {
     const response = await fetch(`${API_URL}/users`);
-    return response.json();
+    return handleResponse(response);
   },
   
   createUser: async (userData) => {
@@ -41,7 +56,7 @@ export const userAPI = {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(userData)
     });
-    return response.json();
+    return handleResponse(response);
   },
   
   updateUser: async (id, userData) => {
@@ -50,14 +65,14 @@ export const userAPI = {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(userData)
     });
-    return response.json();
+    return handleResponse(response);
   },
   
   deleteUser: async (id) => {
     const response = await fetch(`${API_URL}/users/${id}`, {
       method: 'DELETE'
     });
-    return response.json();
+    return handleResponse(response);
   }
 };
 
@@ -65,12 +80,12 @@ export const userAPI = {
 export const productAPI = {
   getAll: async () => {
     const response = await fetch(`${API_URL}/products`);
-    return response.json();
+    return handleResponse(response);
   },
   
   getById: async (id) => {
     const response = await fetch(`${API_URL}/products/${id}`);
-    return response.json();
+    return handleResponse(response);
   },
   
   create: async (productData) => {
@@ -79,7 +94,7 @@ export const productAPI = {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(productData)
     });
-    return response.json();
+    return handleResponse(response);
   },
   
   update: async (id, productData) => {
@@ -88,14 +103,14 @@ export const productAPI = {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(productData)
     });
-    return response.json();
+    return handleResponse(response);
   },
   
   delete: async (id) => {
     const response = await fetch(`${API_URL}/products/${id}`, {
       method: 'DELETE'
     });
-    return response.json();
+    return handleResponse(response);
   }
 };
 
@@ -103,7 +118,7 @@ export const productAPI = {
 export const cartAPI = {
   getCart: async (userId) => {
     const response = await fetch(`${API_URL}/cart/${userId}`);
-    return response.json();
+    return handleResponse(response);
   },
   
   addToCart: async (userId, item) => {
@@ -112,7 +127,7 @@ export const cartAPI = {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(item)
     });
-    return response.json();
+    return handleResponse(response);
   },
   
   updateItem: async (userId, itemId, quantity) => {
@@ -121,21 +136,21 @@ export const cartAPI = {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ quantity })
     });
-    return response.json();
+    return handleResponse(response);
   },
   
   removeItem: async (userId, itemId) => {
     const response = await fetch(`${API_URL}/cart/${userId}/item/${itemId}`, {
       method: 'DELETE'
     });
-    return response.json();
+    return handleResponse(response);
   },
   
   clearCart: async (userId) => {
     const response = await fetch(`${API_URL}/cart/${userId}`, {
       method: 'DELETE'
     });
-    return response.json();
+    return handleResponse(response);
   }
 };
 
@@ -143,7 +158,7 @@ export const cartAPI = {
 export const wishlistAPI = {
   getWishlist: async (userId) => {
     const response = await fetch(`${API_URL}/wishlist/${userId}`);
-    return response.json();
+    return handleResponse(response);
   },
   
   addToWishlist: async (userId, item) => {
@@ -152,21 +167,21 @@ export const wishlistAPI = {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(item)
     });
-    return response.json();
+    return handleResponse(response);
   },
   
   removeItem: async (userId, itemId) => {
     const response = await fetch(`${API_URL}/wishlist/${userId}/item/${itemId}`, {
       method: 'DELETE'
     });
-    return response.json();
+    return handleResponse(response);
   },
   
   clearWishlist: async (userId) => {
     const response = await fetch(`${API_URL}/wishlist/${userId}`, {
       method: 'DELETE'
     });
-    return response.json();
+    return handleResponse(response);
   }
 };
 
@@ -174,12 +189,12 @@ export const wishlistAPI = {
 export const orderAPI = {
   getOrders: async (userId) => {
     const response = await fetch(`${API_URL}/orders/${userId}`);
-    return response.json();
+    return handleResponse(response);
   },
   
   getOrderById: async (id) => {
     const response = await fetch(`${API_URL}/orders/order/${id}`);
-    return response.json();
+    return handleResponse(response);
   },
   
   createOrder: async (userId, orderData) => {
@@ -188,7 +203,7 @@ export const orderAPI = {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(orderData)
     });
-    return response.json();
+    return handleResponse(response);
   },
   
   updateStatus: async (id, status) => {
@@ -197,11 +212,11 @@ export const orderAPI = {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ status })
     });
-    return response.json();
+    return handleResponse(response);
   },
   
   getAllOrders: async () => {
     const response = await fetch(`${API_URL}/orders`);
-    return response.json();
+    return handleResponse(response);
   }
 };
